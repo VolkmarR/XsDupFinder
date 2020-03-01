@@ -14,16 +14,15 @@ namespace XsDupFinder.Lib.Parser
         public string SourceCode { get; private set; }
         public uint HashCode { get; private set; }
 
-        public SourceCodeFile(string fileName)
+        public SourceCodeFile(string fileName) : this(fileName, File.Exists(fileName) ? File.ReadAllText(fileName) : "")
+        { }
+
+        public SourceCodeFile(string fileName, string sourceCode)
         {
             FileName = fileName;
             SourceCode = null;
-            HashCode = 0;
-            if (File.Exists(fileName))
-            {
-                SourceCode = File.ReadAllText(fileName);
-                HashCode = XXHash.XXH32(Encoding.UTF8.GetBytes(SourceCode));
-            }
+            SourceCode = sourceCode;
+            HashCode = XXHash.XXH32(Encoding.UTF8.GetBytes(SourceCode));
         }
     }
 }
