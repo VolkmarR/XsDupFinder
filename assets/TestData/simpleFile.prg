@@ -37,6 +37,7 @@ method InitCopy() as void strict
   a8 := 8
   a9 := 9
   a10 := 10
+  // comment should be ignored
   return 
 
 

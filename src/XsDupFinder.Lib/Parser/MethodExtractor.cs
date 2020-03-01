@@ -19,12 +19,71 @@ namespace XsDupFinder.Lib.Parser
 
             string GetMethodName(XSharpParser.SignatureContext context)
                 => context.Id.GetText();
-            
+
+            readonly StringBuilder SBLine = new StringBuilder();
+            int CurrentStart = -1;
+            int CurrentStartLine = 0;
+
+            private void AddElementToLine(IParseTree block)
+            {
+                SBLine.Append(block.GetText());
+                SBLine.Append(' ');
+            }
+
+            private string GetCurrentLine()
+            {
+                var result = SBLine.ToString();
+                SBLine.Length = 0;
+                return result;
+            }
+
+            private void RenderStatements(IParseTree block, MethodInfo methodInfo)
+            {
+                if (block.ChildCount == 0)
+                {
+                    AddElementToLine(block);
+                    return;
+                }
+
+                for (int i = 0; i < block.ChildCount; i++)
+                {
+                    var child = block.GetChild(i);
+
+                    if (CurrentStart == -1)
+                    {
+                        if (child is TerminalNodeImpl && ((TerminalNodeImpl)child).symbol is XSharpToken token)
+                        {
+                            CurrentStart = token.Position;
+                            CurrentStartLine = token.Line;
+                        }
+                        else if (child is XSharpParserRuleContext context)
+                        {
+                            CurrentStart = context.Position;
+                            CurrentStartLine = context.Start?.Line ?? -1;
+                        }
+                        else
+                            throw new Exception("Dump");
+                    }
+
+                    if (child is XSharpParser.EosContext eosChild)
+                    {
+                        methodInfo.StatementList.Add(new StatementInfo(GetCurrentLine(), CurrentStart, eosChild.Position, CurrentStartLine));
+                        CurrentStart = -1;
+                    }
+                    else
+                    {
+                        RenderStatements(child, methodInfo);
+                    }
+                }
+            }
+
 
             public override void EnterMethod([NotNull] XSharpParser.MethodContext context)
             {
-                var method = new MethodInfo { Name = GetMethodName(context.Sig) };
-                MethodList.Add(method);
+                var methodInfo = new MethodInfo { Name = GetMethodName(context.Sig) };
+                MethodList.Add(methodInfo);
+
+                RenderStatements(context.statementBlock(), methodInfo);
             }
         }
 
