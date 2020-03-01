@@ -25,6 +25,7 @@ namespace XsDupFinder.Tests.Parser
         {
             var codeInfo = new MethodExtractor().Execute(new SourceCodeFile(@"..\..\..\..\assets\TestData\simpleFile.prg"));
             codeInfo.MethodList[0].StatementList.Should().HaveCount(11);
+            codeInfo.MethodList[1].StatementList.Should().HaveCount(11);
         }
     }
 }
