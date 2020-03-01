@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XsDupFinder.Lib", "XsDupFin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XsDupFinderCmd", "XsDupFinderCmd\XsDupFinderCmd.csproj", "{66F86B50-B511-429E-A230-424D6318D7B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XsDupFinder.Tests", "XsDupFinder.Tests\XsDupFinder.Tests.csproj", "{5083BC35-D103-4B4B-B60B-9A8A955C116F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{66F86B50-B511-429E-A230-424D6318D7B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66F86B50-B511-429E-A230-424D6318D7B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66F86B50-B511-429E-A230-424D6318D7B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5083BC35-D103-4B4B-B60B-9A8A955C116F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5083BC35-D103-4B4B-B60B-9A8A955C116F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5083BC35-D103-4B4B-B60B-9A8A955C116F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5083BC35-D103-4B4B-B60B-9A8A955C116F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

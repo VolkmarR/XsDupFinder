@@ -15,22 +15,24 @@ namespace XsDupFinder.Lib.Parser
     {
         class MethodListener : XSharpBaseListener
         {
+            public List<MethodInfo> MethodList = new List<MethodInfo>();
+
+            string GetMethodName(XSharpParser.SignatureContext context)
+                => context.Id.GetText();
+            
+
             public override void EnterMethod([NotNull] XSharpParser.MethodContext context)
             {
-                foreach (var methodtypeContext in context.methodtype())
-                {
-                    Console.WriteLine(methodtypeContext.GetText());
-                }
-
-                Console.WriteLine(context.Sig.GetText());
-
-                Console.WriteLine(context.statementBlock().GetText());
+                var method = new MethodInfo { Name = GetMethodName(context.Sig) };
+                MethodList.Add(method);
             }
         }
 
-        public void Execute(string fileName)
+        SourceCodeFile SourceCodeFile;
+
+        List<MethodInfo> GetMethodInfos()
         {
-            var lexer = XSharpLexer.Create(File.ReadAllText(fileName), fileName);
+            var lexer = XSharpLexer.Create(SourceCodeFile.SourceCode, SourceCodeFile.FileName);
             lexer.RemoveErrorListeners();
 
             var tokenStream = new CommonTokenStream(lexer, 0);
@@ -41,7 +43,14 @@ namespace XsDupFinder.Lib.Parser
             var listener = new MethodListener();
 
             new ParseTreeWalker().Walk(listener, source);
+
+            return listener.MethodList;
         }
 
+        public CodeInfo Execute(SourceCodeFile sourceCodeFile)
+        {
+            SourceCodeFile = sourceCodeFile;
+            return new CodeInfo { FileName = SourceCodeFile.FileName, HashCode = SourceCodeFile.HashCode, MethodList = GetMethodInfos() };
+        }
     }
 }
