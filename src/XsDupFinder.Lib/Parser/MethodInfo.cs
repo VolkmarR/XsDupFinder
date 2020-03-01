@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace XsDupFinder.Lib.Parser
 {
-    class MethodInfo
+    public class MethodInfo
     {
         public string Name { get; set; }
         public List<StatementInfo> StatementList { get; set; } = new List<StatementInfo>();

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace XsDupFinder.Lib.Parser
 {
-    class StatementInfo
+    public class StatementInfo
     {
         public uint Hashcode { get; set; }
         public int Start { get; set; }

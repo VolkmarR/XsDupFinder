@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace XsDupFinder.Lib.Parser
 {
-    class CodeInfo
+    public class CodeInfo
     {
         public string FileName { get; set; }
         public uint HashCode { get; set; }
