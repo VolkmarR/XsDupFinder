@@ -20,7 +20,7 @@ namespace XsDupFinder.Tests.Parser
         }
 
         [Fact]
-        public void LoadFileNOtExists()
+        public void LoadFileNotExists()
         {
             var scf = new SourceCodeFile(@"..\..\..\..\assets\TestData\FileNotExists.prg");
             scf.Should().NotBeNull();
