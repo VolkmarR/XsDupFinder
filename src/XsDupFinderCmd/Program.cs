@@ -11,7 +11,13 @@ namespace XsDupFinderCmd
     {
         static void Main(string[] args)
         {
-            new MethodExtractor().Execute(@"..\..\..\..\assets\TestData\simpleFile.prg ");
+            var xx = new MethodExtractor().Execute(new SourceCodeFile(@"..\..\..\..\assets\TestData\simpleFile.prg "));
+            foreach (var methodInfo in xx.MethodList)
+            {
+                Console.WriteLine(methodInfo.Name);
+            }
+
+
             Console.ReadKey();
         }
     }
