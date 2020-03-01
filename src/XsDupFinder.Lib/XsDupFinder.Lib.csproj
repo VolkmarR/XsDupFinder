@@ -45,7 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Parser\MethodExtractor.cs" />
+    <Compile Include="Parser\MethodInfo.cs" />
+    <Compile Include="Parser\StatementInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Extensions.Data.xxHash.core20">
+      <Version>1.0.2.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
