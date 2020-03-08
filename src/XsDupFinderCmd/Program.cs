@@ -3,22 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using XsDupFinder.Lib.Parser;
+using XsDupFinder.Lib.Common;
+using XsDupFinder.Lib.Finder;
+using XsDupFinder.Lib.Output;
+using CommandLine;
 
 namespace XsDupFinderCmd
 {
     class Program
     {
+        static void Execute(Configuration configuration)
+        {
+            configuration.FixOptionalValues();
+            var duplicates = new DirectoryDuplicateFinder(configuration, (msg) => Console.WriteLine(msg)).Execute();
+            new RenderOutput(configuration, duplicates).Execute();
+        }
+
         static void Main(string[] args)
         {
-            var xx = new MethodExtractor().Execute(new SourceCodeFile(@"..\..\..\..\assets\TestData\simpleFile.prg "));
-            foreach (var methodInfo in xx.MethodList)
-            {
-                Console.WriteLine(methodInfo.Name);
-            }
-
-
-            Console.ReadKey();
+            Parser.Default
+                .ParseArguments<Configuration>(args)
+                .WithParsed<Configuration>(opts => Execute(opts));
         }
     }
 }
