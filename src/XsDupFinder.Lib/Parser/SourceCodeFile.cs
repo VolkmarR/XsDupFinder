@@ -10,6 +10,7 @@ namespace XsDupFinder.Lib.Parser
 {
     public class SourceCodeFile
     {
+        public string RelativeFileName(string sourceDirectory) => FileName.Substring(sourceDirectory.Length);
         public string FileName { get; private set; }
         public string SourceCode { get; private set; }
         public uint HashCode { get; private set; }
