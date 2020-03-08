@@ -21,10 +21,10 @@ namespace XsDupFinder.Lib.Common
         [Option('f', "MinLineForDuplMethodCheck", HelpText = "Minimum number of lines needed to qualify for the duplicate method check", Default = 3)]
         public int MinLineForFullMethodDuplicateCheck { get; set; }
 
-        public void FixOptionalValues()
+        public Configuration FixOptionalValues()
         {
             if (string.IsNullOrWhiteSpace(SourceDirectory))
-                return;
+                return this;
 
             if (MinLineForDuplicate < 5)
                 MinLineForDuplicate = 5;
@@ -32,13 +32,15 @@ namespace XsDupFinder.Lib.Common
             if (MinLineForFullMethodDuplicateCheck < 5)
                 MinLineForFullMethodDuplicateCheck = 5;
 
-            if (!SourceDirectory.EndsWith("\\"))
-                SourceDirectory += "\\";
+            if (!SourceDirectory.EndsWith(@"\"))
+                SourceDirectory += @"\";
 
             if (string.IsNullOrEmpty(CacheFileName))
                 CacheFileName = Path.Combine(SourceDirectory, "XsDupFinderCache.db");
             if (string.IsNullOrEmpty(OutputDirectory))
                 OutputDirectory = SourceDirectory;
+
+            return this;
         }
     }
 }
