@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Cache\CacheDB.cs" />
     <Compile Include="Finder\Duplicate.cs" />
-    <Compile Include="Finder\Finder.cs" />
+    <Compile Include="Finder\DuplicateFinder.cs" />
     <Compile Include="Common\Configuration.cs" />
     <Compile Include="Parser\CodeInfo.cs" />
     <Compile Include="Parser\MethodExtractor.cs" />
