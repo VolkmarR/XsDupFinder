@@ -44,6 +44,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\CacheDB.cs" />
     <Compile Include="Parser\CodeInfo.cs" />
     <Compile Include="Parser\MethodExtractor.cs" />
     <Compile Include="Parser\MethodInfo.cs" />
@@ -54,6 +55,9 @@
   <ItemGroup>
     <PackageReference Include="Extensions.Data.xxHash.core20">
       <Version>1.0.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="LiteDB">
+      <Version>5.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
