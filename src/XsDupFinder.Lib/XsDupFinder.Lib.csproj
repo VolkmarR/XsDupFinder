@@ -45,6 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\CacheDB.cs" />
+    <Compile Include="Finder\Duplicate.cs" />
+    <Compile Include="Finder\Finder.cs" />
+    <Compile Include="Common\Configuration.cs" />
     <Compile Include="Parser\CodeInfo.cs" />
     <Compile Include="Parser\MethodExtractor.cs" />
     <Compile Include="Parser\MethodInfo.cs" />
@@ -53,6 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CommandLineParser">
+      <Version>2.7.82</Version>
+    </PackageReference>
     <PackageReference Include="Extensions.Data.xxHash.core20">
       <Version>1.0.2.1</Version>
     </PackageReference>
@@ -60,5 +66,6 @@
       <Version>5.0.3</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
