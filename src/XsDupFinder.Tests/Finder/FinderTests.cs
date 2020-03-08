@@ -56,5 +56,17 @@ namespace XsDupFinder.Tests.Finder
 
             result[0].Locations.Should().HaveCount(3);
         }
+
+        [Fact]
+        public void DirectoryDuplicateFinder()
+        {
+            var configuration = new Configuration { SourceDirectory = Path.GetDirectoryName(@"..\..\..\..\assets\TestData\simpleFile.prg"), MinLineForDuplicate = 10 }.FixOptionalValues();
+            var directoryDuplicateFinder = new DirectoryDuplicateFinder(configuration);
+
+            var result = directoryDuplicateFinder.Execute();
+            result.Should().HaveCount(1);
+
+            result[0].Locations.Should().HaveCount(3);
+        }
     }
 }
