@@ -15,6 +15,7 @@ namespace XsDupFinder.Lib.Finder
             public int StartLine { get; set; }
             public int EndLine { get; set; }
             public int PercentOfMethod { get; set; }
+            public bool IsFullMethod { get; set; }
         }
 
         public int LineCount { get => Locations.Count > 0 ? Locations[0].EndLine - Locations[0].StartLine + 1 : 0; }
