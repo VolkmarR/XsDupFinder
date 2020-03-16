@@ -7,6 +7,7 @@ using XsDupFinder.Lib.Common;
 using XsDupFinder.Lib.Finder;
 using XsDupFinder.Lib.Output;
 using CommandLine;
+using System.IO;
 
 namespace XsDupFinderCmd
 {
@@ -19,11 +20,26 @@ namespace XsDupFinderCmd
             new RenderOutput(configuration, duplicates).Execute();
         }
 
+        static void AnalyzeArguments(ConfigurationCmd configuration)
+        {
+            if (string.IsNullOrEmpty(configuration.ConfgFile))
+                Execute(configuration);
+            else
+            {
+                if (!File.Exists(configuration.ConfgFile))
+                {
+                    Console.WriteLine($"Configuration file {configuration.ConfgFile} not found. Dummy file created.");
+                    new Configuration().SaveConfig(configuration.ConfgFile);
+                }
+                else
+                    Execute(Configuration.Load(configuration.ConfgFile));
+            }
+        }
         static void Main(string[] args)
         {
             Parser.Default
-                .ParseArguments<Configuration>(args)
-                .WithParsed<Configuration>(opts => Execute(opts));
+                .ParseArguments<ConfigurationCmd>(args)
+                .WithParsed<ConfigurationCmd>(opts => AnalyzeArguments(opts));
         }
     }
 }
