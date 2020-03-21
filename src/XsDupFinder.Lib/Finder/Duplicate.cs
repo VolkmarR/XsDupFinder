@@ -18,7 +18,9 @@ namespace XsDupFinder.Lib.Finder
             public bool IsFullMethod { get; set; }
         }
 
-        public int LineCount { get => Locations.Count > 0 ? Locations[0].EndLine - Locations[0].StartLine + 1 : 0; }
+        public int ID { get; set; }
+        public List<int> OverlappingIDs { get; set; }
+        public int LineCount => Locations.Count > 0 ? Locations[0].EndLine - Locations[0].StartLine + 1 : 0;
         public string Code { get; set; }
         public List<Location> Locations { get; set; } = new List<Location>();
     }
