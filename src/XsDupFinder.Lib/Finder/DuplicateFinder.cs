@@ -144,6 +144,43 @@ namespace XsDupFinder.Lib.Finder
             AddDupelicate(locationList, startOffset, endOffset);
         }
 
+        List<Duplicate> PrepareResult()
+        {
+            var result = DuplicateList.OrderByDescending(q => q.LineCount).ThenByDescending(q => q.Locations.Count).ToList();
+            var id = 0;
+            foreach (var item in result)
+                item.ID = ++id;
+
+            var duplocateOverlapIDs = DuplicateList.ToDictionary(q => q, _ => new HashSet<int>());
+            var duplocateLocations = DuplicateList.SelectMany(q => q.Locations, (m, d) => new { Duplicate = m, Location = d });
+            var overlapping = from q in duplocateLocations
+                              group q by $"{ q.Location.Filename}#{q.Location.MethodName}" into g
+                              select new { Items = g.OrderBy(o => o.Location.StartLine).ToList() };
+            foreach (var group in overlapping)
+            {
+                for (int i = 0; i < group.Items.Count; i++)
+                {
+                    var first = group.Items[i];
+                    for (int j = i + 1; j < group.Items.Count; j++)
+                    {
+                        var current = group.Items[j];
+                        if (first.Duplicate.ID != current.Duplicate.ID && 
+                            first.Location.StartLine <= current.Location.EndLine && 
+                            first.Location.EndLine >= current.Location.StartLine)
+                        {
+                            duplocateOverlapIDs[current.Duplicate].Add(first.Duplicate.ID);
+                            duplocateOverlapIDs[first.Duplicate].Add(current.Duplicate.ID);
+                        }
+                    }
+                }
+            }
+
+            foreach (var item in duplocateOverlapIDs)
+                item.Key.OverlappingIDs = item.Value.OrderBy(q => q).ToList();
+
+            return result;
+        }
+
         public void AddSourceCodeFile(SourceCodeFile sourceCodeFile, CodeInfo codeInfo)
         {
             if (sourceCodeFile == null || codeInfo == null || sourceCodeFile.FileName != codeInfo.FileName)
@@ -193,7 +230,7 @@ namespace XsDupFinder.Lib.Finder
             foreach (var locationList in Locations.Values)
                 CheckDuplicates(locationList);
 
-            return DuplicateList.OrderByDescending(q => q.LineCount).ThenByDescending(q => q.Locations.Count).ToList();
+            return PrepareResult();
         }
     }
 }
