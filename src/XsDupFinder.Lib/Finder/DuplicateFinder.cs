@@ -119,7 +119,6 @@ namespace XsDupFinder.Lib.Finder
                 StartLine = location.Method.StatementList[startOffset].StartLine,
                 EndLine = location.Method.StatementList[endOffset].StartLine,
                 PercentOfMethod = percentOfMethod,
-                IsFullMethod = percentOfMethod == 100,
             });
         }
 
