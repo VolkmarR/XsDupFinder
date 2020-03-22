@@ -35,9 +35,9 @@
             this.ConfigGroupBox = new System.Windows.Forms.GroupBox();
             this.MinLineForFullMethodDuplicateCheckEdit = new System.Windows.Forms.NumericUpDown();
             this.MinLineForDuplicateEdit = new System.Windows.Forms.NumericUpDown();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.CacheFileNameButton = new System.Windows.Forms.Button();
+            this.OutputDirectoryButton = new System.Windows.Forms.Button();
+            this.SourceDirectoryButton = new System.Windows.Forms.Button();
             this.CacheFileNameEdit = new System.Windows.Forms.TextBox();
             this.OutputDirectoryEdit = new System.Windows.Forms.TextBox();
             this.SourceDirectoryEdit = new System.Windows.Forms.TextBox();
@@ -50,6 +50,8 @@
             this.AnalysisLog = new System.Windows.Forms.TextBox();
             this.LogPanel = new System.Windows.Forms.Panel();
             this.SaveConfigFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.FolderSelectDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.SaveCacheFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.TopPanel.SuspendLayout();
             this.ConfigGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MinLineForFullMethodDuplicateCheckEdit)).BeginInit();
@@ -70,7 +72,7 @@
             // 
             // StartButton
             // 
-            this.StartButton.Location = new System.Drawing.Point(699, 6);
+            this.StartButton.Location = new System.Drawing.Point(207, 6);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(89, 23);
             this.StartButton.TabIndex = 2;
@@ -102,9 +104,9 @@
             // 
             this.ConfigGroupBox.Controls.Add(this.MinLineForFullMethodDuplicateCheckEdit);
             this.ConfigGroupBox.Controls.Add(this.MinLineForDuplicateEdit);
-            this.ConfigGroupBox.Controls.Add(this.button3);
-            this.ConfigGroupBox.Controls.Add(this.button2);
-            this.ConfigGroupBox.Controls.Add(this.button1);
+            this.ConfigGroupBox.Controls.Add(this.CacheFileNameButton);
+            this.ConfigGroupBox.Controls.Add(this.OutputDirectoryButton);
+            this.ConfigGroupBox.Controls.Add(this.SourceDirectoryButton);
             this.ConfigGroupBox.Controls.Add(this.CacheFileNameEdit);
             this.ConfigGroupBox.Controls.Add(this.OutputDirectoryEdit);
             this.ConfigGroupBox.Controls.Add(this.SourceDirectoryEdit);
@@ -135,35 +137,38 @@
             this.MinLineForDuplicateEdit.Size = new System.Drawing.Size(73, 20);
             this.MinLineForDuplicateEdit.TabIndex = 26;
             // 
-            // button3
+            // CacheFileNameButton
             // 
-            this.button3.Location = new System.Drawing.Point(761, 71);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(25, 20);
-            this.button3.TabIndex = 25;
-            this.button3.TabStop = false;
-            this.button3.Text = "...";
-            this.button3.UseVisualStyleBackColor = true;
+            this.CacheFileNameButton.Location = new System.Drawing.Point(761, 71);
+            this.CacheFileNameButton.Name = "CacheFileNameButton";
+            this.CacheFileNameButton.Size = new System.Drawing.Size(25, 20);
+            this.CacheFileNameButton.TabIndex = 25;
+            this.CacheFileNameButton.TabStop = false;
+            this.CacheFileNameButton.Text = "...";
+            this.CacheFileNameButton.UseVisualStyleBackColor = true;
+            this.CacheFileNameButton.Click += new System.EventHandler(this.CacheFileNameButton_Click);
             // 
-            // button2
+            // OutputDirectoryButton
             // 
-            this.button2.Location = new System.Drawing.Point(761, 45);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(25, 20);
-            this.button2.TabIndex = 24;
-            this.button2.TabStop = false;
-            this.button2.Text = "...";
-            this.button2.UseVisualStyleBackColor = true;
+            this.OutputDirectoryButton.Location = new System.Drawing.Point(761, 45);
+            this.OutputDirectoryButton.Name = "OutputDirectoryButton";
+            this.OutputDirectoryButton.Size = new System.Drawing.Size(25, 20);
+            this.OutputDirectoryButton.TabIndex = 24;
+            this.OutputDirectoryButton.TabStop = false;
+            this.OutputDirectoryButton.Text = "...";
+            this.OutputDirectoryButton.UseVisualStyleBackColor = true;
+            this.OutputDirectoryButton.Click += new System.EventHandler(this.OutputDirectoryButton_Click);
             // 
-            // button1
+            // SourceDirectoryButton
             // 
-            this.button1.Location = new System.Drawing.Point(761, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(25, 20);
-            this.button1.TabIndex = 23;
-            this.button1.TabStop = false;
-            this.button1.Text = "...";
-            this.button1.UseVisualStyleBackColor = true;
+            this.SourceDirectoryButton.Location = new System.Drawing.Point(761, 19);
+            this.SourceDirectoryButton.Name = "SourceDirectoryButton";
+            this.SourceDirectoryButton.Size = new System.Drawing.Size(25, 20);
+            this.SourceDirectoryButton.TabIndex = 23;
+            this.SourceDirectoryButton.TabStop = false;
+            this.SourceDirectoryButton.Text = "...";
+            this.SourceDirectoryButton.UseVisualStyleBackColor = true;
+            this.SourceDirectoryButton.Click += new System.EventHandler(this.SourceDirectoryButton_Click);
             // 
             // CacheFileNameEdit
             // 
@@ -247,6 +252,7 @@
             this.AnalysisLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.AnalysisLog.Size = new System.Drawing.Size(939, 318);
             this.AnalysisLog.TabIndex = 6;
+            this.AnalysisLog.TabStop = false;
             // 
             // LogPanel
             // 
@@ -263,6 +269,12 @@
             this.SaveConfigFileDialog.DefaultExt = "yaml";
             this.SaveConfigFileDialog.Filter = "XsDupeFinder Settings|*.yaml";
             this.SaveConfigFileDialog.Title = "Save settings";
+            // 
+            // SaveCacheFileDialog
+            // 
+            this.SaveCacheFileDialog.DefaultExt = "db";
+            this.SaveCacheFileDialog.Filter = "CacheDB|*.db";
+            this.SaveCacheFileDialog.Title = "Cache filename";
             // 
             // MainForm
             // 
@@ -294,9 +306,9 @@
         private System.Windows.Forms.Button SaveConfigButton;
         private System.Windows.Forms.Button LoadConfigButton;
         private System.Windows.Forms.GroupBox ConfigGroupBox;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button CacheFileNameButton;
+        private System.Windows.Forms.Button OutputDirectoryButton;
+        private System.Windows.Forms.Button SourceDirectoryButton;
         private System.Windows.Forms.TextBox CacheFileNameEdit;
         private System.Windows.Forms.TextBox OutputDirectoryEdit;
         private System.Windows.Forms.TextBox SourceDirectoryEdit;
@@ -311,6 +323,8 @@
         private System.Windows.Forms.TextBox AnalysisLog;
         private System.Windows.Forms.Panel LogPanel;
         private System.Windows.Forms.SaveFileDialog SaveConfigFileDialog;
+        private System.Windows.Forms.FolderBrowserDialog FolderSelectDialog;
+        private System.Windows.Forms.SaveFileDialog SaveCacheFileDialog;
     }
 }
 

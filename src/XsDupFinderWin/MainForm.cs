@@ -77,5 +77,25 @@ namespace XsDupFinderWin
             var duplicateFinder = new DirectoryDuplicateFinder(config, UpdateOutputLog);
             new RenderOutput(config, duplicateFinder.Execute()).Execute();
         }
+
+        private void SourceDirectoryButton_Click(object sender, EventArgs e)
+        {
+            FolderSelectDialog.ShowNewFolderButton = false;
+            if (FolderSelectDialog.ShowDialog() == DialogResult.OK)
+                SourceDirectoryEdit.Text = FolderSelectDialog.SelectedPath;
+        }
+
+        private void OutputDirectoryButton_Click(object sender, EventArgs e)
+        {
+            FolderSelectDialog.ShowNewFolderButton = true;
+            if (FolderSelectDialog.ShowDialog() == DialogResult.OK)
+                OutputDirectoryEdit.Text = FolderSelectDialog.SelectedPath;
+        }
+
+        private void CacheFileNameButton_Click(object sender, EventArgs e)
+        {
+            if (SaveCacheFileDialog.ShowDialog() == DialogResult.OK)
+                CacheFileNameEdit.Text = SaveCacheFileDialog.FileName;
+        }
     }
 }
