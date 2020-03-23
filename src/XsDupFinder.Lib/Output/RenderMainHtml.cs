@@ -58,7 +58,6 @@ namespace XsDupFinder.Lib.Output
                     OverlappingIDItems.First().IsFirst = true;
                     OverlappingIDItems.Last().IsLast = true;
                 }
-
             }
         }
 
@@ -71,11 +70,11 @@ namespace XsDupFinder.Lib.Output
   <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh' crossorigin='anonymous'>
   <title>Duplicate code fragments</title>
   <style>
-    body { padding-top: 70px;}
-    .anchor { padding-top: 70px; margin-top: -70px; }
+   html  {scroll-padding-top: 70px }  
+   body {scroll-padding-top: 70px; padding-top: 70px }  
   </style>
 </head>
-<body style='padding-top: 70px;'>
+<body>
   <script src='https://code.jquery.com/jquery-3.4.1.slim.min.js' integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n' crossorigin='anonymous'></script>
   <script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo' crossorigin='anonymous'></script>
   <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js' integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6' crossorigin='anonymous'></script>
@@ -103,7 +102,7 @@ namespace XsDupFinder.Lib.Output
 
     <div class='card mb-4'>
       <div class='card-header'>
-        <h4><a class='anchor' name='cfg'/>Configuration</h4>
+        <h4><a name='cfg'/>Configuration</h4>
       </div>
       <div class='card-body pb-0'>
 	    <dl class='row'>
@@ -131,7 +130,7 @@ namespace XsDupFinder.Lib.Output
 
     <div class='card mb-4'>
       <div class='card-header'>
-        <h4><a class='anchor' name='sum'/>Summary</h4>
+        <h4><a name='sum'/>Summary</h4>
       </div>
       <div class='card-body  pb-0'>
         <dl class='row'>
@@ -145,7 +144,7 @@ namespace XsDupFinder.Lib.Output
 {{#Duplicates}}
     <div class='card mb-3'>
       <div class='card-header'>
-        <h4><a class='anchor' name='f{{ID}}'/>Fragment {{ID}} ({{LineCount}} lines, {{Locations.Count}} locations)</h4>
+        <h4><a name='f{{ID}}'/>Fragment {{ID}} ({{LineCount}} lines, {{Locations.Count}} locations)</h4>
       </div>
       <div class='card-body table-responsive'>
 
