@@ -38,7 +38,7 @@ namespace XsDupFinder.Lib.Output
                         RelativeFileName = Filename.Substring(sourceDirectory.Length);
                     else
                         RelativeFileName = Filename;
-                    BadgeType = IsFullMethod ? "success" : "warning";
+                    BadgeType = IsFullMethod ? "danger" : "warning";
                 }
             }
 
