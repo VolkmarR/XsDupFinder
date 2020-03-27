@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Cache\CacheDBTests.cs" />
     <Compile Include="Finder\FinderTests.cs" />
+    <Compile Include="Output\RenderMainHtmlTests.cs" />
     <Compile Include="Parser\MethodExtractorTests.cs" />
     <Compile Include="Parser\SourceCodeFileTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

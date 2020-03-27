@@ -15,7 +15,7 @@ namespace XsDupFinder.Lib.Finder
             public int StartLine { get; set; }
             public int EndLine { get; set; }
             public int PercentOfMethod { get; set; }
-            public bool IsFullMethod { get; set; }
+            public bool IsFullMethod => PercentOfMethod == 100;
         }
 
         public int ID { get; set; }
