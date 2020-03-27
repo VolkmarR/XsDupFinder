@@ -50,7 +50,7 @@ namespace XsDupFinderCmd
         {
             Parser.Default
                 .ParseArguments<ConfigurationCmd>(args)
-                .WithParsed<ConfigurationCmd>(opts => AnalyzeArguments(opts));
+                .WithParsed(opts => AnalyzeArguments(opts));
         }
     }
 }
