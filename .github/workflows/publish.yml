@@ -24,5 +24,9 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Run './build.cmd '
-        run: ./build.cmd 
+      - name: Run './build.cmd Publish'
+        run: ./build.cmd Publish
+      - uses: actions/upload-artifact@v1
+        with:
+          name: XsDupFinder.zip
+          path: artifacts/XsDupFinder.zip

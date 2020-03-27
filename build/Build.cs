@@ -18,7 +18,12 @@ using Nuke.Common.CI;
 
 [CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
-[GitHubActions("publish", GitHubActionsImage.WindowsLatest, On = new GitHubActionsTrigger[] { GitHubActionsTrigger.PullRequest })]
+[GitHubActions(
+    "publish", 
+    GitHubActionsImage.WindowsLatest, 
+    On = new GitHubActionsTrigger[] { GitHubActionsTrigger.PullRequest },
+    InvokedTargets = new string[]{ nameof(Publish) }
+    )]
 class Build : NukeBuild
 {
     public static int Main () => Execute<Build>(x => x.Publish);
@@ -31,6 +36,7 @@ class Build : NukeBuild
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
+    AbsolutePath PublishFileName => ArtifactsDirectory / "XsDupFinder.zip";
 
     Target Clean => _ => _
         .Before(Restore)
@@ -62,9 +68,9 @@ class Build : NukeBuild
         });
 
     Target Publish => _ => _
+        .Produces(PublishFileName)
         .DependsOn(Clean)
         .DependsOn(Compile)
-        .Produces(ArtifactsDirectory / "XsDupeFinder.zip")
         .Executes(() =>
         {
             var OutputDirectory = ArtifactsDirectory / "XsDupeFinder";
@@ -87,6 +93,6 @@ class Build : NukeBuild
                 .SetMaxCpuCount(Environment.ProcessorCount)
                 .SetNodeReuse(IsLocalBuild));
 
-            Compress(OutputDirectory, ArtifactsDirectory / "XsDupeFinder.zip");
+            Compress(OutputDirectory, PublishFileName);
         });
 }
