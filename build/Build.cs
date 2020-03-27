@@ -13,9 +13,12 @@ using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.IO.CompressionTasks;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
+using Nuke.Common.CI.GitHubActions;
+using Nuke.Common.CI;
 
 [CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
+[GitHubActions("publish", GitHubActionsImage.WindowsLatest, On = new GitHubActionsTrigger[] { GitHubActionsTrigger.PullRequest })]
 class Build : NukeBuild
 {
     public static int Main () => Execute<Build>(x => x.Compile);
@@ -61,6 +64,7 @@ class Build : NukeBuild
     Target Publish => _ => _
         .DependsOn(Clean)
         .DependsOn(Compile)
+        .Produces(ArtifactsDirectory / "XsDupeFinder.zip")
         .Executes(() =>
         {
             var OutputDirectory = ArtifactsDirectory / "XsDupeFinder";
