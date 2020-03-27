@@ -18,7 +18,7 @@ namespace XsDupFinder.Lib.Output
         {
             Duplicates = duplicates;
             Configuration = configuration;
-            Renders = new List<IRender> { new RenderJson() };
+            Renders = new List<IRender> { new RenderJson(), new RenderMainHtml() };
         }
 
         public void Execute()
