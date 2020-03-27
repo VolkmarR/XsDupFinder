@@ -72,10 +72,20 @@ namespace XsDupFinderWin
         private void StartButton_Click(object sender, EventArgs e)
         {
             var config = LoadConfigFromForm().FixOptionalValues();
+            SaveConfigToForm(config);
             ClearOutputLog();
 
-            var duplicateFinder = new DirectoryDuplicateFinder(config, UpdateOutputLog);
-            new RenderOutput(config, duplicateFinder.Execute()).Execute();
+            try
+            {
+                config.Validate();
+                var duplicateFinder = new DirectoryDuplicateFinder(config, UpdateOutputLog);
+                new RenderOutput(config, duplicateFinder.Execute()).Execute();
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "XsDupeFinder Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void SourceDirectoryButton_Click(object sender, EventArgs e)

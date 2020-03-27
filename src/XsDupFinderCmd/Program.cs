@@ -16,6 +16,17 @@ namespace XsDupFinderCmd
         static void Execute(Configuration configuration)
         {
             configuration.FixOptionalValues();
+
+            try
+            {
+                configuration.Validate();
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine("Configuration error: " + ex.Message);
+                return;
+            } 
+
             var duplicates = new DirectoryDuplicateFinder(configuration, (msg) => Console.WriteLine(msg)).Execute();
             new RenderOutput(configuration, duplicates).Execute();
         }
@@ -39,7 +50,7 @@ namespace XsDupFinderCmd
         {
             Parser.Default
                 .ParseArguments<ConfigurationCmd>(args)
-                .WithParsed<ConfigurationCmd>(opts => AnalyzeArguments(opts));
+                .WithParsed(opts => AnalyzeArguments(opts));
         }
     }
 }
