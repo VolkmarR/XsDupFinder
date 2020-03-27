@@ -11,12 +11,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XsDupFinder.Tests", "XsDupF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XsDupFinderWin", "XsDupFinderWin\XsDupFinderWin.csproj", "{365458AB-72EA-42B5-8254-C292AD737764}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "..\build\_build.csproj", "{DF68B745-78E3-400F-9EB7-72170F886D7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF68B745-78E3-400F-9EB7-72170F886D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF68B745-78E3-400F-9EB7-72170F886D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB0E7270-BF25-432A-A085-B0C73EA664D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FB0E7270-BF25-432A-A085-B0C73EA664D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB0E7270-BF25-432A-A085-B0C73EA664D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
