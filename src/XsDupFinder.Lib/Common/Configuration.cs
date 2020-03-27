@@ -36,9 +36,9 @@ namespace XsDupFinder.Lib.Common
             if (!SourceDirectory.EndsWith(@"\"))
                 SourceDirectory += @"\";
 
-            if (string.IsNullOrEmpty(CacheFileName))
+            if (string.IsNullOrWhiteSpace(CacheFileName))
                 CacheFileName = Path.Combine(SourceDirectory, "XsDupFinderCache.db");
-            if (string.IsNullOrEmpty(OutputDirectory))
+            if (string.IsNullOrWhiteSpace(OutputDirectory))
                 OutputDirectory = SourceDirectory;
 
             return this;
@@ -52,6 +52,21 @@ namespace XsDupFinder.Lib.Common
         public void SaveConfig(string filename)
         {
             File.WriteAllText(filename, new Serializer().Serialize(this));
+        }
+
+        public void Validate()
+        {
+            void CheckArgument(bool mustBeTrue, string message)
+            {
+                if (!mustBeTrue)
+                    throw new ArgumentException(message);
+            }
+
+            var cacheDirectory = !string.IsNullOrWhiteSpace(CacheFileName) ? Path.GetDirectoryName(CacheFileName) : null;
+            CheckArgument(!string.IsNullOrWhiteSpace(SourceDirectory), $"Source directory can not be empty");
+            CheckArgument(Directory.Exists(SourceDirectory), $"Source directory {SourceDirectory} doesn't exist");
+            CheckArgument(string.IsNullOrEmpty(CacheFileName) || Directory.Exists(cacheDirectory), $"Directory {cacheDirectory} for cache file doesn't exist");
+            CheckArgument(string.IsNullOrEmpty(OutputDirectory) || Directory.Exists(OutputDirectory), $"Output directory {OutputDirectory} doesn't exist");
         }
     }
 }
