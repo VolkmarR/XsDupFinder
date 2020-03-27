@@ -93,6 +93,9 @@ class Build : NukeBuild
                 .SetMaxCpuCount(Environment.ProcessorCount)
                 .SetNodeReuse(IsLocalBuild));
 
+            CopyFileToDirectory(SourceDirectory / ".." / "readme.md", OutputDirectory);
+            CopyFileToDirectory(SourceDirectory / ".." / "LICENSE", OutputDirectory);
+
             Compress(OutputDirectory, PublishFileName);
         });
 }
