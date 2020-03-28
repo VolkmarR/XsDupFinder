@@ -25,40 +25,42 @@ namespace XsDupFinder.Lib.Finder
         {
             ProcessUpdate?.Invoke($"Updating Cache ({Configuration.CacheFileName})");
 
-            var cacheDB = new CacheDB(Configuration.CacheFileName);
-            var methodExtractor = new MethodExtractor();
-            var finder = new DuplicateFinder(Configuration);
-
-            var files = Directory.EnumerateFiles(Configuration.SourceDirectory, "*.prg", SearchOption.AllDirectories).ToList();
-            ProcessUpdate?.Invoke($"Found {files.Count} source files");
-
-            var index = 1;
-            foreach (var fileName in files)
+            using (var cacheDB = new CacheDB(Configuration.CacheFileName))
             {
-                var sourceCodeFile = new SourceCodeFile(fileName);
+                var methodExtractor = new MethodExtractor();
+                var finder = new DuplicateFinder(Configuration);
 
-                ProcessUpdate?.Invoke($"[{index++} of {files.Count}] {sourceCodeFile.RelativeFileName(Configuration.SourceDirectory)}");
+                var files = Directory.EnumerateFiles(Configuration.SourceDirectory, "*.prg", SearchOption.AllDirectories).ToList();
+                ProcessUpdate?.Invoke($"Found {files.Count} source files");
 
-                try
+                var index = 1;
+                foreach (var fileName in files)
                 {
-                    if (!cacheDB.TryGetValue(sourceCodeFile, out var codeInfo))
+                    var sourceCodeFile = new SourceCodeFile(fileName);
+
+                    ProcessUpdate?.Invoke($"[{index++} of {files.Count}] {sourceCodeFile.RelativeFileName(Configuration.SourceDirectory)}");
+
+                    try
                     {
-                        codeInfo = methodExtractor.Execute(sourceCodeFile);
-                        cacheDB.Add(codeInfo);
+                        if (!cacheDB.TryGetValue(sourceCodeFile, out var codeInfo))
+                        {
+                            codeInfo = methodExtractor.Execute(sourceCodeFile);
+                            cacheDB.Add(codeInfo);
+                        }
+                        finder.AddSourceCodeFile(sourceCodeFile, codeInfo);
                     }
-                    finder.AddSourceCodeFile(sourceCodeFile, codeInfo);
+                    catch
+                    {
+                        ProcessUpdate?.Invoke("File could not be parsed and will be skipped");
+                    }
                 }
-                catch
-                {
-                    ProcessUpdate?.Invoke("File could not be parsed and will be skipped");
-                }
+
+                ProcessUpdate?.Invoke("Identifying duplicates");
+                var result = finder.Execute();
+                ProcessUpdate?.Invoke($"{(result.Count > 0 ? result.Count.ToString() : "No")} duplicates found");
+
+                return result;
             }
-
-            ProcessUpdate?.Invoke("Identifying duplicates");
-            var result = finder.Execute();
-            ProcessUpdate?.Invoke($"{(result.Count > 0 ? result.Count.ToString() : "No")} duplicates found");
-
-            return result;
         }
     }
 }
