@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using XsDupFinder.Lib.Common;
@@ -15,9 +16,12 @@ namespace XsDupFinderWin
 {
     public partial class MainForm : Form
     {
+        private readonly SynchronizationContext SynchronizationContext;
+
         public MainForm()
         {
             InitializeComponent();
+            SynchronizationContext = SynchronizationContext.Current;
         }
 
         private string LastConfigName = "";
@@ -44,12 +48,21 @@ namespace XsDupFinderWin
         private void ClearOutputLog()
             => AnalysisLog.Clear();
 
+        private void SetFormState(bool enabled)
+        {
+            LoadConfigButton.Enabled = enabled;
+            SaveConfigButton.Enabled = enabled;
+            StartButton.Enabled = enabled;
+            ConfigGroupBox.Enabled = enabled;
+            UseWaitCursor = !enabled;
+            Application.DoEvents();
+        }
+
         private void UpdateOutputLog(string msg)
-            => Invoke((MethodInvoker)(() =>
+            => SynchronizationContext.Post(new SendOrPostCallback(updateMsg =>
             {
-                AnalysisLog.AppendText(msg + Environment.NewLine);
-                AnalysisLog.Refresh();
-            }));
+                AnalysisLog.AppendText((string)updateMsg + Environment.NewLine);
+            }), msg);
 
         private void LoadConfigButton_Click(object sender, EventArgs e)
         {
@@ -69,7 +82,7 @@ namespace XsDupFinderWin
             LoadConfigFromForm().SaveConfig(SaveConfigFileDialog.FileName);
         }
 
-        private void StartButton_Click(object sender, EventArgs e)
+        private async void StartButton_Click(object sender, EventArgs e)
         {
             var config = LoadConfigFromForm().FixOptionalValues();
             SaveConfigToForm(config);
@@ -78,13 +91,22 @@ namespace XsDupFinderWin
             try
             {
                 config.Validate();
-                var duplicateFinder = new DirectoryDuplicateFinder(config, UpdateOutputLog);
-                new RenderOutput(config, duplicateFinder.Execute()).Execute();
             }
             catch (ArgumentException ex)
             {
                 MessageBox.Show(ex.Message, "XsDupeFinder Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+
+            SetFormState(false);
+            try
+            {
+                var duplicateFinder = new DirectoryDuplicateFinder(config, UpdateOutputLog);
+                await Task.Run(() => new RenderOutput(config, duplicateFinder.Execute()).Execute());
+            }
+            finally
+            {
+                SetFormState(true);
             }
         }
 
