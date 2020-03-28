@@ -126,16 +126,46 @@
             // MinLineForFullMethodDuplicateCheckEdit
             // 
             this.MinLineForFullMethodDuplicateCheckEdit.Location = new System.Drawing.Point(197, 124);
+            this.MinLineForFullMethodDuplicateCheckEdit.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.MinLineForFullMethodDuplicateCheckEdit.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.MinLineForFullMethodDuplicateCheckEdit.Name = "MinLineForFullMethodDuplicateCheckEdit";
             this.MinLineForFullMethodDuplicateCheckEdit.Size = new System.Drawing.Size(73, 20);
             this.MinLineForFullMethodDuplicateCheckEdit.TabIndex = 27;
+            this.MinLineForFullMethodDuplicateCheckEdit.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // MinLineForDuplicateEdit
             // 
             this.MinLineForDuplicateEdit.Location = new System.Drawing.Point(197, 98);
+            this.MinLineForDuplicateEdit.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.MinLineForDuplicateEdit.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.MinLineForDuplicateEdit.Name = "MinLineForDuplicateEdit";
             this.MinLineForDuplicateEdit.Size = new System.Drawing.Size(73, 20);
             this.MinLineForDuplicateEdit.TabIndex = 26;
+            this.MinLineForDuplicateEdit.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // CacheFileNameButton
             // 
