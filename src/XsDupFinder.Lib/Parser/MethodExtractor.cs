@@ -79,6 +79,9 @@ namespace XsDupFinder.Lib.Parser
 
             public override void EnterMethod([NotNull] XSharpParser.MethodContext context)
             {
+                if (context?.Sig == null)
+                    return;
+
                 var methodInfo = new MethodInfo { Name = GetMethodName(context.Sig) };
                 MethodList.Add(methodInfo);
 
