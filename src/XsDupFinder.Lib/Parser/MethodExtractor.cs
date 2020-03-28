@@ -1,13 +1,12 @@
-﻿using LanguageService.CodeAnalysis.XSharp.SyntaxParser;
+﻿using LanguageService.CodeAnalysis.XSharp;
+using LanguageService.CodeAnalysis.XSharp.SyntaxParser;
 using LanguageService.SyntaxTree;
 using LanguageService.SyntaxTree.Misc;
 using LanguageService.SyntaxTree.Tree;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace XsDupFinder.Lib.Parser
 {
@@ -96,6 +95,8 @@ namespace XsDupFinder.Lib.Parser
 
             var tokenStream = new CommonTokenStream(lexer, 0);
             var parser = new XSharpParser(tokenStream);
+            parser.Options = new XSharpParseOptions();
+            parser.Options.SetXSharpSpecificOptions(XSharpSpecificCompilationOptions.Default);
             parser.RemoveErrorListeners();
 
             var source = parser.source();
