@@ -27,5 +27,15 @@ namespace XsDupFinder.Tests.Parser
             codeInfo.MethodList[0].StatementList.Should().HaveCount(11);
             codeInfo.MethodList[1].StatementList.Should().HaveCount(11);
         }
+
+        [Fact]
+        public void AllCodeBlocksFile()
+        {
+            var codeInfo = new MethodExtractor().Execute(new SourceCodeFile(@"..\..\..\..\assets\TestData\allCodeBlocks.prg"));
+            codeInfo.MethodList.Should().HaveCount(5);
+            foreach (var method in codeInfo.MethodList)
+                method.StatementList.Should().HaveCount(3);
+        }
+
     }
 }

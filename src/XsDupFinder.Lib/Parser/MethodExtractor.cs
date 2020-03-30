@@ -23,20 +23,20 @@ namespace XsDupFinder.Lib.Parser
             int CurrentStart = -1;
             int CurrentStartLine = 0;
 
-            private void AddElementToLine(IParseTree block)
+            void AddElementToLine(IParseTree block)
             {
                 SBLine.Append(block.GetText());
                 SBLine.Append(' ');
             }
 
-            private string GetCurrentLine()
+            string GetCurrentLine()
             {
                 var result = SBLine.ToString();
                 SBLine.Length = 0;
                 return result;
             }
 
-            private void RenderStatements(IParseTree block, MethodInfo methodInfo)
+            void RenderStatements(IParseTree block, MethodInfo methodInfo)
             {
                 if (block.ChildCount == 0)
                 {
@@ -76,17 +76,30 @@ namespace XsDupFinder.Lib.Parser
                 }
             }
 
+            void AddMethodInfo(string name, XSharpParser.StatementBlockContext statementBlockContext)
+            {
+                var methodInfo = new MethodInfo { Name = name };
+                MethodList.Add(methodInfo);
+
+                RenderStatements(statementBlockContext, methodInfo);
+            }
 
             public override void EnterMethod([NotNull] XSharpParser.MethodContext context)
             {
                 if (context?.Sig == null)
                     return;
 
-                var methodInfo = new MethodInfo { Name = GetMethodName(context.Sig) };
-                MethodList.Add(methodInfo);
-
-                RenderStatements(context.statementBlock(), methodInfo);
+                AddMethodInfo(GetMethodName(context.Sig), context.statementBlock());
             }
+
+            public override void EnterConstructor([NotNull] XSharpParser.ConstructorContext context)
+                => AddMethodInfo("Constructor", context.statementBlock());
+
+            public override void EnterDestructor([NotNull] XSharpParser.DestructorContext context)
+                => AddMethodInfo("Destructor", context.statementBlock());
+
+            public override void EnterFuncproc([NotNull] XSharpParser.FuncprocContext context)
+                => AddMethodInfo(GetMethodName(context.Sig), context.statementBlock());
         }
 
         SourceCodeFile SourceCodeFile;
