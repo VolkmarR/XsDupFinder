@@ -76,9 +76,9 @@ namespace XsDupFinder.Lib.Parser
                 }
             }
 
-            void AddMethodInfo(string name, XSharpParser.StatementBlockContext statementBlockContext)
+            void AddMethodInfo(string name, MethodInfoType type, XSharpParser.StatementBlockContext statementBlockContext)
             {
-                var methodInfo = new MethodInfo { Name = name };
+                var methodInfo = new MethodInfo { Name = name, Type = type };
                 MethodList.Add(methodInfo);
 
                 RenderStatements(statementBlockContext, methodInfo);
@@ -89,17 +89,17 @@ namespace XsDupFinder.Lib.Parser
                 if (context?.Sig == null)
                     return;
 
-                AddMethodInfo(GetMethodName(context.Sig), context.statementBlock());
+                AddMethodInfo(GetMethodName(context.Sig), MethodInfoType.Method, context.statementBlock());
             }
 
             public override void EnterConstructor([NotNull] XSharpParser.ConstructorContext context)
-                => AddMethodInfo("Constructor", context.statementBlock());
+                => AddMethodInfo("Constructor", MethodInfoType.Constructor, context.statementBlock());
 
             public override void EnterDestructor([NotNull] XSharpParser.DestructorContext context)
-                => AddMethodInfo("Destructor", context.statementBlock());
+                => AddMethodInfo("Destructor", MethodInfoType.Destructor, context.statementBlock());
 
             public override void EnterFuncproc([NotNull] XSharpParser.FuncprocContext context)
-                => AddMethodInfo(GetMethodName(context.Sig), context.statementBlock());
+                => AddMethodInfo(GetMethodName(context.Sig), MethodInfoType.FuncProc, context.statementBlock());
         }
 
         SourceCodeFile SourceCodeFile;
