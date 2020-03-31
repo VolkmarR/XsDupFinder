@@ -16,12 +16,29 @@ namespace XsDupFinder.Lib.Cache
             public CodeInfo Data { get; set; }
         }
 
+        class Version
+        {
+            public static string DefaultID = "Version";
+            public string Id { get; set; } = DefaultID;
+            public int Analyzer { get; set; } = 0;
+        }
+
         readonly LiteDatabase DB;
         readonly ILiteCollection<CacheItem> CacheItemCollection;
+        readonly int CurrentAnalyzerVersion = 1;
 
         public CacheDB(string fileName)
         {
             DB = new LiteDatabase(fileName);
+
+            var version = DB.GetCollection<Version>().FindById(Version.DefaultID) ?? new Version();
+            if (version.Analyzer != CurrentAnalyzerVersion)
+            {
+                DB.DropCollection(nameof(Version));
+                DB.DropCollection(nameof(CacheItem));
+                DB.GetCollection<Version>().Insert(new Version() { Analyzer = CurrentAnalyzerVersion });
+                DB.Rebuild();
+            }
 
             CacheItemCollection = DB.GetCollection<CacheItem>();
         }

@@ -56,6 +56,7 @@
     <Compile Include="Parser\CodeInfo.cs" />
     <Compile Include="Parser\MethodExtractor.cs" />
     <Compile Include="Parser\MethodInfo.cs" />
+    <Compile Include="Parser\MethodInfoType.cs" />
     <Compile Include="Parser\SourceCodeFile.cs" />
     <Compile Include="Parser\StatementInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

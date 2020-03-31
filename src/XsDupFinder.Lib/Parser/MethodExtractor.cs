@@ -23,20 +23,20 @@ namespace XsDupFinder.Lib.Parser
             int CurrentStart = -1;
             int CurrentStartLine = 0;
 
-            private void AddElementToLine(IParseTree block)
+            void AddElementToLine(IParseTree block)
             {
                 SBLine.Append(block.GetText());
                 SBLine.Append(' ');
             }
 
-            private string GetCurrentLine()
+            string GetCurrentLine()
             {
                 var result = SBLine.ToString();
                 SBLine.Length = 0;
                 return result;
             }
 
-            private void RenderStatements(IParseTree block, MethodInfo methodInfo)
+            void RenderStatements(IParseTree block, MethodInfo methodInfo)
             {
                 if (block.ChildCount == 0)
                 {
@@ -76,16 +76,49 @@ namespace XsDupFinder.Lib.Parser
                 }
             }
 
+            void AddMethodInfo(string name, MethodInfoType type, XSharpParser.StatementBlockContext statementBlockContext)
+            {
+                var methodInfo = new MethodInfo { Name = name, Type = type };
+                MethodList.Add(methodInfo);
+
+                RenderStatements(statementBlockContext, methodInfo);
+            }
 
             public override void EnterMethod([NotNull] XSharpParser.MethodContext context)
             {
                 if (context?.Sig == null)
                     return;
 
-                var methodInfo = new MethodInfo { Name = GetMethodName(context.Sig) };
-                MethodList.Add(methodInfo);
+                AddMethodInfo(GetMethodName(context.Sig), MethodInfoType.Method, context.statementBlock());
+            }
 
-                RenderStatements(context.statementBlock(), methodInfo);
+            public override void EnterConstructor([NotNull] XSharpParser.ConstructorContext context)
+                => AddMethodInfo("Constructor", MethodInfoType.Constructor, context.statementBlock());
+
+            public override void EnterDestructor([NotNull] XSharpParser.DestructorContext context)
+                => AddMethodInfo("Destructor", MethodInfoType.Destructor, context.statementBlock());
+
+            public override void EnterFuncproc([NotNull] XSharpParser.FuncprocContext context)
+                => AddMethodInfo(GetMethodName(context.Sig), MethodInfoType.FuncProc, context.statementBlock());
+
+            public override void EnterOperator_([NotNull] XSharpParser.Operator_Context context) 
+                => AddMethodInfo("Operator", MethodInfoType.Operator, context.statementBlock());
+
+            public override void EnterPropertyAccessor([NotNull] XSharpParser.PropertyAccessorContext context)
+            {
+                if (!(context.parent is XSharpParser.PropertyContext idContext) || string.IsNullOrWhiteSpace(idContext.Id.GetText())) 
+                    return;
+
+                MethodInfoType methodInfoType;
+                if (string.Equals(context.Key.Text, "Get", StringComparison.OrdinalIgnoreCase))
+                    methodInfoType = MethodInfoType.PropertyGet;
+                else if (string.Equals(context.Key.Text, "Set", StringComparison.OrdinalIgnoreCase))
+                    methodInfoType = MethodInfoType.PropertySet;
+                else
+                    throw new ArgumentException("Invalid PropertyAccessor Key");
+
+                var name = $"{idContext.Id.GetText()}[{(methodInfoType == MethodInfoType.PropertyGet ? "Get" : "Set")}]";
+                AddMethodInfo(name, methodInfoType, context.statementBlock());
             }
         }
 
