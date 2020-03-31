@@ -100,6 +100,26 @@ namespace XsDupFinder.Lib.Parser
 
             public override void EnterFuncproc([NotNull] XSharpParser.FuncprocContext context)
                 => AddMethodInfo(GetMethodName(context.Sig), MethodInfoType.FuncProc, context.statementBlock());
+
+            public override void EnterOperator_([NotNull] XSharpParser.Operator_Context context) 
+                => AddMethodInfo("Operator", MethodInfoType.Operator, context.statementBlock());
+
+            public override void EnterPropertyAccessor([NotNull] XSharpParser.PropertyAccessorContext context)
+            {
+                if (!(context.parent is XSharpParser.PropertyContext idContext) || string.IsNullOrWhiteSpace(idContext.Id.GetText())) 
+                    return;
+
+                MethodInfoType methodInfoType;
+                if (string.Equals(context.Key.Text, "Get", StringComparison.OrdinalIgnoreCase))
+                    methodInfoType = MethodInfoType.PropertyGet;
+                else if (string.Equals(context.Key.Text, "Set", StringComparison.OrdinalIgnoreCase))
+                    methodInfoType = MethodInfoType.PropertySet;
+                else
+                    throw new ArgumentException("Invalid PropertyAccessor Key");
+
+                var name = $"{idContext.Id.GetText()}[{(methodInfoType == MethodInfoType.PropertyGet ? "Get" : "Set")}]";
+                AddMethodInfo(name, methodInfoType, context.statementBlock());
+            }
         }
 
         SourceCodeFile SourceCodeFile;
