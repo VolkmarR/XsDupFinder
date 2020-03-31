@@ -32,7 +32,32 @@ namespace XsDupFinder.Tests.Parser
         public void AllCodeBlocksFile()
         {
             var codeInfo = new MethodExtractor().Execute(new SourceCodeFile(@"..\..\..\..\assets\TestData\allCodeBlocks.prg"));
-            codeInfo.MethodList.Should().HaveCount(5);
+            codeInfo.MethodList.Should().HaveCount(10);
+
+            codeInfo.MethodList.Select(q => q.Name).ToList().Should().BeEquivalentTo(
+                "AsProperty[Get]", 
+                "AsProperty[Set]", 
+                "Operator", 
+                "AsAccess", 
+                "AsAssign", 
+                "AsMethod", 
+                "Constructor", 
+                "Destructor", 
+                "AsFunction", 
+                "AsProcedure");
+
+            codeInfo.MethodList.Select(q => q.Type).ToList().Should().BeEquivalentTo(
+                MethodInfoType.PropertyGet, 
+                MethodInfoType.PropertySet, 
+                MethodInfoType.Operator, 
+                MethodInfoType.Method, 
+                MethodInfoType.Method, 
+                MethodInfoType.Method, 
+                MethodInfoType.Constructor, 
+                MethodInfoType.Destructor, 
+                MethodInfoType.FuncProc, 
+                MethodInfoType.FuncProc);
+
             foreach (var method in codeInfo.MethodList)
                 method.StatementList.Should().HaveCount(3);
         }
