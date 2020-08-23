@@ -5,11 +5,15 @@
 **XsDupFinder** is a duplicate code finder for the [XSharp](https://www.xsharp.info/) programming language. 
 The goal is to analyze large XSharp code bases and detect duplicate code fragments, that were created by copy and paste source code.
 
+## Where can I download it
+
+The current compiled version can be downloaded from the [releases page](https://github.com/VolkmarR/XsDupFinder/releases/latest).
+
 ## How does it work
 
-XsDupFinder uses the original parser, developed by the XSharp Team to analyze the source code and extract methods and statements. 
+XsDupFinder uses the parser, developed by the XSharp Team to analyze the source code and extract code blocks (like methods, functions, ...) and their statements. 
 Because of that, it is smarter then a generic duplicate text finder, because:
-* only the code inside methods will be analyzed
+* only the code inside the code blocks will be analyzed
 * comments and white spaces will be ignored
 
 ## How do I use it
