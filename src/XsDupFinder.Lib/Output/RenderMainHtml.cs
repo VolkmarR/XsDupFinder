@@ -155,8 +155,8 @@ namespace XsDupFinder.Lib.Output
             <tr>
               <th scope='col'>Filename </th>
               <th scope='col'>Method</th>
-              <th scope='col'> Startline </th>
-              <th scope='col'>Endtline</th>
+              <th scope='col'>Startline</th>
+              <th scope='col'>Endline</th>
               <th scope='col'>% of method</th>
             </tr>
           </thead>
