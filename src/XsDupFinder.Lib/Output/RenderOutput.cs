@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XsDupFinder.Lib.Common;
 using XsDupFinder.Lib.Finder;
+using XsDupFinder.Lib.Output.ChangeTracker;
+using XsDupFinder.Lib.Output.Renderer;
 
 namespace XsDupFinder.Lib.Output
 {
@@ -18,15 +21,13 @@ namespace XsDupFinder.Lib.Output
         {
             Duplicates = duplicates;
             Configuration = configuration;
-            Renders = new List<IRender> { new RenderJson(), new RenderMainHtml() };
+            Renders = new List<IRender> { new RenderChangeTracker(), new RenderJson(), new RenderMainHtml() };
         }
 
         public void Execute()
         {
             foreach (var render in Renders)
-            {
                 render.Execute(Configuration, Duplicates);
-            }
         }
     }
 }

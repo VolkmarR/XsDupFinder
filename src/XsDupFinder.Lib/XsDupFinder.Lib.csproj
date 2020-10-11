@@ -49,9 +49,14 @@
     <Compile Include="Finder\Duplicate.cs" />
     <Compile Include="Finder\DuplicateFinder.cs" />
     <Compile Include="Common\Configuration.cs" />
-    <Compile Include="Output\IRender.cs" />
-    <Compile Include="Output\RenderJson.cs" />
-    <Compile Include="Output\RenderMainHtml.cs" />
+    <Compile Include="Output\Json\JsonChangesItem.cs" />
+    <Compile Include="Output\Json\JsonChangesOutput.cs" />
+    <Compile Include="Output\Renderer\RenderChangeTracker.cs" />
+    <Compile Include="Output\Renderer\IRender.cs" />
+    <Compile Include="Output\Json\JsonOutput.cs" />
+    <Compile Include="Output\Renderer\RenderFileHelper.cs" />
+    <Compile Include="Output\Renderer\RenderJson.cs" />
+    <Compile Include="Output\Renderer\RenderMainHtml.cs" />
     <Compile Include="Output\RenderOutput.cs" />
     <Compile Include="Parser\CodeInfo.cs" />
     <Compile Include="Parser\MethodExtractor.cs" />

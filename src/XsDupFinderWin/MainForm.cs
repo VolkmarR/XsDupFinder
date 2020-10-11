@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -33,6 +29,7 @@ namespace XsDupFinderWin
             CacheFileNameEdit.Text = config.CacheFileName;
             MinLineForDuplicateEdit.Value = config.MinLineForDuplicate;
             MinLineForFullMethodDuplicateCheckEdit.Value = config.MinLineForFullMethodDuplicateCheck;
+            TrackChangesCheckBox.Checked = config.TrackChanges;
         }
 
         private Configuration LoadConfigFromForm()
@@ -42,7 +39,8 @@ namespace XsDupFinderWin
                 OutputDirectory = OutputDirectoryEdit.Text,
                 CacheFileName = CacheFileNameEdit.Text,
                 MinLineForDuplicate = (int)MinLineForDuplicateEdit.Value,
-                MinLineForFullMethodDuplicateCheck = (int)MinLineForFullMethodDuplicateCheckEdit.Value
+                MinLineForFullMethodDuplicateCheck = (int)MinLineForFullMethodDuplicateCheckEdit.Value,
+                TrackChanges = TrackChangesCheckBox.Checked
             };
 
         private void ClearOutputLog()

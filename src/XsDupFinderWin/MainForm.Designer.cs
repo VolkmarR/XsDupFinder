@@ -52,6 +52,7 @@
             this.SaveConfigFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.FolderSelectDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.SaveCacheFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.TrackChangesCheckBox = new System.Windows.Forms.CheckBox();
             this.TopPanel.SuspendLayout();
             this.ConfigGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MinLineForFullMethodDuplicateCheckEdit)).BeginInit();
@@ -102,6 +103,7 @@
             // 
             // ConfigGroupBox
             // 
+            this.ConfigGroupBox.Controls.Add(this.TrackChangesCheckBox);
             this.ConfigGroupBox.Controls.Add(this.MinLineForFullMethodDuplicateCheckEdit);
             this.ConfigGroupBox.Controls.Add(this.MinLineForDuplicateEdit);
             this.ConfigGroupBox.Controls.Add(this.CacheFileNameButton);
@@ -118,7 +120,7 @@
             this.ConfigGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.ConfigGroupBox.Location = new System.Drawing.Point(4, 40);
             this.ConfigGroupBox.Name = "ConfigGroupBox";
-            this.ConfigGroupBox.Size = new System.Drawing.Size(955, 156);
+            this.ConfigGroupBox.Size = new System.Drawing.Size(955, 174);
             this.ConfigGroupBox.TabIndex = 2;
             this.ConfigGroupBox.TabStop = false;
             this.ConfigGroupBox.Text = "Settings";
@@ -280,7 +282,7 @@
             this.AnalysisLog.Name = "AnalysisLog";
             this.AnalysisLog.ReadOnly = true;
             this.AnalysisLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.AnalysisLog.Size = new System.Drawing.Size(939, 318);
+            this.AnalysisLog.Size = new System.Drawing.Size(939, 300);
             this.AnalysisLog.TabIndex = 6;
             this.AnalysisLog.TabStop = false;
             // 
@@ -288,10 +290,10 @@
             // 
             this.LogPanel.Controls.Add(this.AnalysisLog);
             this.LogPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LogPanel.Location = new System.Drawing.Point(4, 196);
+            this.LogPanel.Location = new System.Drawing.Point(4, 214);
             this.LogPanel.Name = "LogPanel";
             this.LogPanel.Padding = new System.Windows.Forms.Padding(8);
-            this.LogPanel.Size = new System.Drawing.Size(955, 334);
+            this.LogPanel.Size = new System.Drawing.Size(955, 316);
             this.LogPanel.TabIndex = 4;
             // 
             // SaveConfigFileDialog
@@ -305,6 +307,16 @@
             this.SaveCacheFileDialog.DefaultExt = "db";
             this.SaveCacheFileDialog.Filter = "CacheDB|*.db";
             this.SaveCacheFileDialog.Title = "Cache filename";
+            // 
+            // TrackChangesCheckBox
+            // 
+            this.TrackChangesCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.TrackChangesCheckBox.Location = new System.Drawing.Point(6, 147);
+            this.TrackChangesCheckBox.Name = "TrackChangesCheckBox";
+            this.TrackChangesCheckBox.Size = new System.Drawing.Size(205, 24);
+            this.TrackChangesCheckBox.TabIndex = 28;
+            this.TrackChangesCheckBox.Text = "Track changes";
+            this.TrackChangesCheckBox.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -355,6 +367,7 @@
         private System.Windows.Forms.SaveFileDialog SaveConfigFileDialog;
         private System.Windows.Forms.FolderBrowserDialog FolderSelectDialog;
         private System.Windows.Forms.SaveFileDialog SaveCacheFileDialog;
+        private System.Windows.Forms.CheckBox TrackChangesCheckBox;
     }
 }
 
