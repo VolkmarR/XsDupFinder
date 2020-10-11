@@ -21,6 +21,8 @@ namespace XsDupFinder.Lib.Common
         public int MinLineForDuplicate { get; set; } = 5;
         [Option('f', "MinLineForDuplMethodCheck", SetName = "Config", HelpText = "Minimum number of lines needed to qualify for the duplicate method check", Default = 3)]
         public int MinLineForFullMethodDuplicateCheck { get; set; } = 5;
+        [Option("TrackChanges", SetName = "Config", HelpText = "Activates tracking changes", Default = false)]
+        public bool TrackChanges { get; set; } = false;
 
         public Configuration FixOptionalValues()
         {
