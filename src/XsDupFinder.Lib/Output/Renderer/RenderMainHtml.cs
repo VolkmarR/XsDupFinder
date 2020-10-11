@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using XsDupFinder.Lib.Common;
 using XsDupFinder.Lib.Finder;
@@ -10,6 +11,8 @@ namespace XsDupFinder.Lib.Output.Renderer
 {
     class RenderMainHtml : IRender
     {
+        public const string FileName = "duplicates.html";
+
         class ItemFirstLast<T>
         {
             public T Item;
@@ -197,7 +200,7 @@ namespace XsDupFinder.Lib.Output.Renderer
             };
 
             var output = stubble.Render(Template, data);
-            RenderFileHelper.SaveRenderOutput(configuration, "duplicates.html", output);
+            RenderFileHelper.SaveRenderOutput(configuration, FileName, output);
         }
     }
 }
