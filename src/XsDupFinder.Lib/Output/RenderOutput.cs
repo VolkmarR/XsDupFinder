@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XsDupFinder.Lib.Common;
 using XsDupFinder.Lib.Finder;
+using XsDupFinder.Lib.Output.Renderer;
 
 namespace XsDupFinder.Lib.Output
 {

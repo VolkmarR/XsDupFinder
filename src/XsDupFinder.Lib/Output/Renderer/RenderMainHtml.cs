@@ -6,7 +6,7 @@ using System.Text;
 using XsDupFinder.Lib.Common;
 using XsDupFinder.Lib.Finder;
 
-namespace XsDupFinder.Lib.Output
+namespace XsDupFinder.Lib.Output.Renderer
 {
     class RenderMainHtml : IRender
     {

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XsDupFinder.Lib.Common;
 
-namespace XsDupFinder.Lib.Output
+namespace XsDupFinder.Lib.Output.Renderer
 {
     static class RenderFileHelper
     {

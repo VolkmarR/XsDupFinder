@@ -6,7 +6,7 @@ using XsDupFinder.Lib.Common;
 using XsDupFinder.Lib.Finder;
 using XsDupFinder.Lib.Output.Json;
 
-namespace XsDupFinder.Lib.Output
+namespace XsDupFinder.Lib.Output.Renderer
 {
     class RenderJson : IRender
     {
