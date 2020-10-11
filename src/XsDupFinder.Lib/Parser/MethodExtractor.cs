@@ -106,7 +106,7 @@ namespace XsDupFinder.Lib.Parser
 
             public override void EnterPropertyAccessor([NotNull] XSharpParser.PropertyAccessorContext context)
             {
-                if (!(context.parent is XSharpParser.PropertyContext idContext) || string.IsNullOrWhiteSpace(idContext.Id.GetText())) 
+                if (!(context.parent is XSharpParser.PropertyContext idContext) || string.IsNullOrWhiteSpace(idContext.Id?.GetText())) 
                     return;
 
                 MethodInfoType methodInfoType;
