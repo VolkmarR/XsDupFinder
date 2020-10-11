@@ -1,10 +1,8 @@
 ﻿using Stubble.Core.Builders;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using XsDupFinder.Lib.Common;
 using XsDupFinder.Lib.Finder;
 
@@ -199,9 +197,7 @@ namespace XsDupFinder.Lib.Output
             };
 
             var output = stubble.Render(Template, data);
-
-            var fileName = Path.Combine(configuration.OutputDirectory, "duplicates.html");
-            File.WriteAllText(fileName, output);
+            RenderFileHelper.SaveRenderOutput(configuration, "duplicates.html", output);
         }
     }
 }
