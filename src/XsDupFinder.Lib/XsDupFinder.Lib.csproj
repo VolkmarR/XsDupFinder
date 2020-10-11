@@ -50,6 +50,7 @@
     <Compile Include="Finder\DuplicateFinder.cs" />
     <Compile Include="Common\Configuration.cs" />
     <Compile Include="Output\IRender.cs" />
+    <Compile Include="Output\Json\JsonOutput.cs" />
     <Compile Include="Output\RenderFileHelper.cs" />
     <Compile Include="Output\RenderJson.cs" />
     <Compile Include="Output\RenderMainHtml.cs" />
