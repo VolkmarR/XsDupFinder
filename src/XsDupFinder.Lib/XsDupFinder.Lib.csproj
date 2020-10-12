@@ -56,6 +56,7 @@
     <Compile Include="Output\Json\JsonOutput.cs" />
     <Compile Include="Output\Renderer\RenderFileHelper.cs" />
     <Compile Include="Output\Renderer\RenderJson.cs" />
+    <Compile Include="Output\Renderer\RenderChangesHtml.cs" />
     <Compile Include="Output\Renderer\RenderMainHtml.cs" />
     <Compile Include="Output\RenderOutput.cs" />
     <Compile Include="Parser\CodeInfo.cs" />
