@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TopPanel = new System.Windows.Forms.Panel();
             this.StartButton = new System.Windows.Forms.Button();
             this.SaveConfigButton = new System.Windows.Forms.Button();
             this.LoadConfigButton = new System.Windows.Forms.Button();
             this.ConfigGroupBox = new System.Windows.Forms.GroupBox();
+            this.TrackChangesCheckBox = new System.Windows.Forms.CheckBox();
             this.MinLineForFullMethodDuplicateCheckEdit = new System.Windows.Forms.NumericUpDown();
             this.MinLineForDuplicateEdit = new System.Windows.Forms.NumericUpDown();
             this.CacheFileNameButton = new System.Windows.Forms.Button();
@@ -52,7 +54,6 @@
             this.SaveConfigFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.FolderSelectDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.SaveCacheFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.TrackChangesCheckBox = new System.Windows.Forms.CheckBox();
             this.TopPanel.SuspendLayout();
             this.ConfigGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MinLineForFullMethodDuplicateCheckEdit)).BeginInit();
@@ -124,6 +125,16 @@
             this.ConfigGroupBox.TabIndex = 2;
             this.ConfigGroupBox.TabStop = false;
             this.ConfigGroupBox.Text = "Settings";
+            // 
+            // TrackChangesCheckBox
+            // 
+            this.TrackChangesCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.TrackChangesCheckBox.Location = new System.Drawing.Point(6, 147);
+            this.TrackChangesCheckBox.Name = "TrackChangesCheckBox";
+            this.TrackChangesCheckBox.Size = new System.Drawing.Size(205, 24);
+            this.TrackChangesCheckBox.TabIndex = 28;
+            this.TrackChangesCheckBox.Text = "Track changes";
+            this.TrackChangesCheckBox.UseVisualStyleBackColor = true;
             // 
             // MinLineForFullMethodDuplicateCheckEdit
             // 
@@ -308,16 +319,6 @@
             this.SaveCacheFileDialog.Filter = "CacheDB|*.db";
             this.SaveCacheFileDialog.Title = "Cache filename";
             // 
-            // TrackChangesCheckBox
-            // 
-            this.TrackChangesCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.TrackChangesCheckBox.Location = new System.Drawing.Point(6, 147);
-            this.TrackChangesCheckBox.Name = "TrackChangesCheckBox";
-            this.TrackChangesCheckBox.Size = new System.Drawing.Size(205, 24);
-            this.TrackChangesCheckBox.TabIndex = 28;
-            this.TrackChangesCheckBox.Text = "Track changes";
-            this.TrackChangesCheckBox.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -326,6 +327,7 @@
             this.Controls.Add(this.LogPanel);
             this.Controls.Add(this.ConfigGroupBox);
             this.Controls.Add(this.TopPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(4);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
