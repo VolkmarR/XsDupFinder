@@ -13,8 +13,8 @@ namespace XsDupFinder.Lib.Output.ChangeTracker
 {
     class RenderChangeTracker : IRender
     {
+        public const string FileName = "Changes.Json";
         const string JournalDirectoryName = "ChangesJournal";
-        const string FileName = "Changes.Json";
 
         private JsonOutput LastData;
         private Configuration Configuration;
