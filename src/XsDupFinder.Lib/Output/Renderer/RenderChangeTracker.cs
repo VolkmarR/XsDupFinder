@@ -53,7 +53,7 @@ namespace XsDupFinder.Lib.Output.ChangeTracker
                 {
                     var lastLocation = lastDuplicate.Locations[j];
                     var location = duplicate.Locations[j];
-                    if (lastLocation.Filename != location.Filename || lastLocation.MethodName != location.MethodName || lastLocation.StartLine != location.StartLine)
+                    if (lastLocation.Filename != location.Filename || lastLocation.MethodName != location.MethodName)
                         return true;
                 }
             }
