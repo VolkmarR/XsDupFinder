@@ -30,6 +30,7 @@ namespace XsDupFinder.Lib.Output.Renderer
                 public LocationDisplay(string sourceDirectory, Duplicate.Location data)
                 {
                     Filename = data.Filename;
+                    ClassName = data.ClassName;
                     MethodName = data.MethodName;
                     StartLine = data.StartLine;
                     EndLine = data.EndLine;
@@ -155,6 +156,7 @@ namespace XsDupFinder.Lib.Output.Renderer
           <thead class='thead-light'>
             <tr>
               <th scope='col'>Filename </th>
+              <th scope='col'>ClassName</th>
               <th scope='col'>Method</th>
               <th scope='col'>Startline</th>
               <th scope='col'>Endline</th>
@@ -165,6 +167,7 @@ namespace XsDupFinder.Lib.Output.Renderer
 {{#LocationsDisplay}}
             <tr>
 	          <td><a href='{{Filename}}' target='_blank'>{{RelativeFileName}}</a></td>
+              <td>{{ClassName}}</td>
               <td>{{MethodName}}</td>
               <td>{{StartLine}}</td>
               <td>{{EndLine}}</td>

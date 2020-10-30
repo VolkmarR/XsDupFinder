@@ -8,6 +8,7 @@ namespace XsDupFinder.Lib.Parser
 {
     public class MethodInfo
     {
+        public string ClassName { get; set; }
         public string Name { get; set; }
         public MethodInfoType Type { get; set; }
         public List<StatementInfo> StatementList { get; set; } = new List<StatementInfo>();

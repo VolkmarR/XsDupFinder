@@ -1,4 +1,4 @@
-class clsdtaResizeHelper
+class clsTestClass
   
   protect a1 as int
   protect a2 as int

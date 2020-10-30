@@ -11,6 +11,7 @@ namespace XsDupFinder.Lib.Finder
         public class Location
         {
             public string Filename { get; set; }
+            public string ClassName { get; set; }
             public string MethodName { get; set; }
             public int StartLine { get; set; }
             public int EndLine { get; set; }

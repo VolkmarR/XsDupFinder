@@ -19,6 +19,20 @@ namespace XsDupFinder.Lib.Parser
             string GetMethodName(XSharpParser.SignatureContext context)
                 => context.Id.GetText();
 
+            string GetClassName(XSharpParserRuleContext context)
+            {
+                var parent = context?.Parent;
+                while (parent != null)
+                {
+                    if (parent is XSharpParser.Class_Context classContent)
+                        return classContent.Id?.GetText() ?? "";
+
+                    parent = parent.Parent;
+                }
+
+                return "";
+            }
+
             readonly StringBuilder SBLine = new StringBuilder();
             int CurrentStart = -1;
             int CurrentStartLine = 0;
@@ -76,9 +90,9 @@ namespace XsDupFinder.Lib.Parser
                 }
             }
 
-            void AddMethodInfo(string name, MethodInfoType type, XSharpParser.StatementBlockContext statementBlockContext)
+            void AddMethodInfo(string name, string className, MethodInfoType type, XSharpParser.StatementBlockContext statementBlockContext)
             {
-                var methodInfo = new MethodInfo { Name = name, Type = type };
+                var methodInfo = new MethodInfo { Name = name, ClassName = className, Type = type };
                 MethodList.Add(methodInfo);
 
                 RenderStatements(statementBlockContext, methodInfo);
@@ -89,20 +103,20 @@ namespace XsDupFinder.Lib.Parser
                 if (context?.Sig == null)
                     return;
 
-                AddMethodInfo(GetMethodName(context.Sig), MethodInfoType.Method, context.statementBlock());
+                AddMethodInfo(GetMethodName(context.Sig), GetClassName(context), MethodInfoType.Method, context.statementBlock());
             }
 
             public override void EnterConstructor([NotNull] XSharpParser.ConstructorContext context)
-                => AddMethodInfo("Constructor", MethodInfoType.Constructor, context.statementBlock());
+                => AddMethodInfo("Constructor", GetClassName(context), MethodInfoType.Constructor, context.statementBlock());
 
             public override void EnterDestructor([NotNull] XSharpParser.DestructorContext context)
-                => AddMethodInfo("Destructor", MethodInfoType.Destructor, context.statementBlock());
+                => AddMethodInfo("Destructor", GetClassName(context), MethodInfoType.Destructor, context.statementBlock());
 
             public override void EnterFuncproc([NotNull] XSharpParser.FuncprocContext context)
-                => AddMethodInfo(GetMethodName(context.Sig), MethodInfoType.FuncProc, context.statementBlock());
+                => AddMethodInfo(GetMethodName(context.Sig), "", MethodInfoType.FuncProc, context.statementBlock());
 
             public override void EnterOperator_([NotNull] XSharpParser.Operator_Context context) 
-                => AddMethodInfo("Operator", MethodInfoType.Operator, context.statementBlock());
+                => AddMethodInfo("Operator", GetClassName(context), MethodInfoType.Operator, context.statementBlock());
 
             public override void EnterPropertyAccessor([NotNull] XSharpParser.PropertyAccessorContext context)
             {
@@ -118,7 +132,7 @@ namespace XsDupFinder.Lib.Parser
                     throw new ArgumentException("Invalid PropertyAccessor Key");
 
                 var name = $"{idContext.Id.GetText()}[{(methodInfoType == MethodInfoType.PropertyGet ? "Get" : "Set")}]";
-                AddMethodInfo(name, methodInfoType, context.statementBlock());
+                AddMethodInfo(name, GetClassName(context), methodInfoType, context.statementBlock());
             }
         }
 

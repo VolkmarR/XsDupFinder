@@ -25,7 +25,7 @@ namespace XsDupFinder.Lib.Cache
 
         readonly LiteDatabase DB;
         readonly ILiteCollection<CacheItem> CacheItemCollection;
-        readonly int CurrentAnalyzerVersion = 1;
+        readonly int CurrentAnalyzerVersion = 2;
 
         public CacheDB(string fileName)
         {
