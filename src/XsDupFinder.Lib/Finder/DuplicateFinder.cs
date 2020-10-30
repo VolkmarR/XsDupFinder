@@ -115,6 +115,7 @@ namespace XsDupFinder.Lib.Finder
             duplicate.Locations.Add(new Duplicate.Location
             {
                 Filename = location.CodeInfo.FileName,
+                ClassName = location.Method.ClassName,
                 MethodName = location.Method.Name,
                 StartLine = location.Method.StatementList[startOffset].StartLine,
                 EndLine = location.Method.StatementList[endOffset].StartLine,
@@ -153,7 +154,7 @@ namespace XsDupFinder.Lib.Finder
             var duplocateOverlapIDs = DuplicateList.ToDictionary(q => q, _ => new HashSet<int>());
             var duplocateLocations = DuplicateList.SelectMany(q => q.Locations, (m, d) => new { Duplicate = m, Location = d });
             var overlapping = from q in duplocateLocations
-                              group q by $"{ q.Location.Filename}#{q.Location.MethodName}" into g
+                              group q by $"{ q.Location.Filename}#{q.Location.ClassName}#{q.Location.MethodName}" into g
                               select new { Items = g.OrderBy(o => o.Location.StartLine).ToList() };
             foreach (var group in overlapping)
             {
