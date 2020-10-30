@@ -58,8 +58,29 @@ namespace XsDupFinder.Tests.Parser
                 MethodInfoType.FuncProc, 
                 MethodInfoType.FuncProc);
 
+            codeInfo.MethodList.Select(q => q.ClassName).ToList().Should().BeEquivalentTo(
+                "DummyClass",
+                "DummyClass",
+                "DummyClass",
+                "DummyClass",
+                "DummyClass",
+                "DummyClass",
+                "DummyClass",
+                "DummyClass",
+                "",
+                "");
+
             foreach (var method in codeInfo.MethodList)
                 method.StatementList.Should().HaveCount(3);
+        }
+
+        [Fact]
+        public void SimpleFileClassName()
+        {
+            var codeInfo = new MethodExtractor().Execute(new SourceCodeFile(@"..\..\..\..\assets\TestData\simpleFile.prg"));
+            codeInfo.MethodList.Should().HaveCount(2);
+            foreach(var method in codeInfo.MethodList)
+                method.ClassName.Should().Be("clsTestClass");
         }
 
     }
