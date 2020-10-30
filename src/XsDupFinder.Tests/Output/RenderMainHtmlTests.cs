@@ -22,9 +22,10 @@ namespace XsDupFinder.Tests.Output
             OutputDirectory = AppDomain.CurrentDomain.BaseDirectory,
         };
 
-        Duplicate.Location GetDumyLocation(Configuration cfg, string fileName, string methodName) => new Duplicate.Location
+        Duplicate.Location GetDumyLocation(Configuration cfg, string fileName, string className, string methodName) => new Duplicate.Location
         {
             Filename = Path.Combine(cfg.SourceDirectory, fileName),
+            ClassName = className,
             MethodName = methodName,
             StartLine = 1,
             EndLine = 5,
@@ -44,8 +45,8 @@ namespace XsDupFinder.Tests.Output
                     OverlappingIDs = new List<int> { 2 },
                     Locations = new List<Duplicate.Location>
                     {
-                        GetDumyLocation(cfg, "f1.prg", "M1"),
-                        GetDumyLocation(cfg, "f1.prg", "M2"),
+                        GetDumyLocation(cfg, "f1.prg", "C1", "M1"),
+                        GetDumyLocation(cfg, "f1.prg", "C1", "M2"),
                     }
                 },
                 new Duplicate
@@ -55,8 +56,8 @@ namespace XsDupFinder.Tests.Output
                     OverlappingIDs = new List<int> { 1 },
                     Locations = new List<Duplicate.Location>
                     {
-                        GetDumyLocation(cfg, "f1.prg", "M1"),
-                        GetDumyLocation(cfg, "f1.prg", "M2"),
+                        GetDumyLocation(cfg, "f1.prg", "C1", "M1"),
+                        GetDumyLocation(cfg, "f1.prg", "C1", "M2"),
                     }
                 },
             };
